@@ -14,7 +14,7 @@ public class MainPageTests
 
     AppiumOptions options;
 
-    const TargetPlatform Platform = TargetPlatform.Android;
+    const TargetPlatform Platform = TargetPlatform.Apple;
 
     [SetUp]
     public void Setup()
@@ -38,13 +38,11 @@ public class MainPageTests
         driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
     }
 
-
     [Test]
     public void ClickCounterTest()
     {
         var element = driver.FindElementById("CounterBtn");
         element.Click();
-        Thread.Sleep(2000);
         driver.TakeScreenshot().SaveAsFile(nameof(ClickCounterTest), ScreenshotImageFormat.Png);
         Assert.That(element.Text, Is.EqualTo("Clicked 1 time"));
     }
@@ -55,15 +53,14 @@ public class MainPageTests
         var element = driver.FindElementById("AlertBtn");
         element.Click();
 
-        var source = driver.PageSource;
         Assert.DoesNotThrow(() =>
         {
             new WebDriverWait(driver, TimeSpan.FromSeconds(5)).Until(_ => driver.SwitchTo().Alert().Text);
             new WebDriverWait(driver, TimeSpan.FromSeconds(5)).Until(_ =>
             {
+                Console.WriteLine(driver.PageSource);
                 driver.TakeScreenshot().SaveAsFile(nameof(AlertTest), ScreenshotImageFormat.Png);
                 driver.SwitchTo().Alert().Accept();
-                Thread.Sleep(2000);
                 return string.Empty;
             });
         });
@@ -82,7 +79,7 @@ public class MainPageTests
         var androidOptions = new AppiumOptions();
         androidOptions.AddAdditionalCapability(MobileCapabilityType.Udid, "emulator-5554");
         androidOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppPackage, "com.companyname.appiumsample");
-        // comment out if providing path to .app/.ipa file on the next line
+        // comment out if providing path to .apk file on the next line
         androidOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppActivity,
             "com.companyname.appiumsample.MainActivity");
         //_options.AddAdditionalCapability(AndroidMobileCapabilityType.AppActivity, "crc64a85506f2de248d26.MainActivity");
@@ -115,7 +112,7 @@ public class MainPageTests
 
     enum TargetPlatform
     {
-        Apple,
-        Android
+        Android,
+        Apple
     }
 }
