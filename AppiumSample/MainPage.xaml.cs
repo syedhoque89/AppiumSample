@@ -1,25 +1,25 @@
 ﻿namespace AppiumSample;
 
-public partial class MainPage : ContentPage
+public partial class MainPage
 {
-	int count = 0;
+    int count;
 
-	public MainPage()
-	{
-		InitializeComponent();
-	}
+    public MainPage()
+    {
+        InitializeComponent();
+    }
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+    private void OnCounterClicked(object sender, EventArgs e)
+    {
+        count++;
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+        CounterBtn.Text = count == 1 ? $"Clicked {count} time" : $"Clicked {count} times";
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+        SemanticScreenReader.Announce(CounterBtn.Text);
+    }
+
+    private async void OnAlertClicked(object sender, EventArgs e)
+    {
+        await Application.Current!.MainPage!.DisplayAlert("Alert", "This is an alert", "Ok");
+    }
 }
-
-
