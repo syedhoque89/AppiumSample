@@ -10,9 +10,9 @@ namespace AppiumSample.UITests;
 
 public class MainPageTests
 {
-    private AppiumDriver<AppiumWebElement> driver;
+    AppiumDriver<AppiumWebElement> driver;
 
-    private AppiumOptions options;
+    AppiumOptions options;
 
     const TargetPlatform Platform = TargetPlatform.Android;
 
@@ -77,6 +77,8 @@ public class MainPageTests
 
     static AppiumOptions AndroidOptions()
     {
+        /*** adjust the values as needed ***/
+
         var androidOptions = new AppiumOptions();
         androidOptions.AddAdditionalCapability(MobileCapabilityType.Udid, "emulator-5554");
         androidOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AppPackage, "com.companyname.appiumsample");
@@ -97,6 +99,8 @@ public class MainPageTests
 
     static AppiumOptions AppleOptions()
     {
+        /*** adjust the values as needed ***/
+
         var appleOptions = new AppiumOptions();
         appleOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
         appleOptions.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, "15.4");
@@ -109,7 +113,7 @@ public class MainPageTests
         return appleOptions;
     }
 
-    private enum TargetPlatform
+    enum TargetPlatform
     {
         Apple,
         Android
