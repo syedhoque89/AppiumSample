@@ -8,13 +8,13 @@ using OpenQA.Selenium.Support.UI;
 
 namespace AppiumSample.UITests;
 
-public class Tests
+public class MainPageTests
 {
     private AppiumDriver<AppiumWebElement> driver;
 
     private AppiumOptions options;
 
-    const TargetPlatform Platform = TargetPlatform.Apple;
+    const TargetPlatform Platform = TargetPlatform.Android;
 
     [SetUp]
     public void Setup()
